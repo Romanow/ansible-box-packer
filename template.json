@@ -60,7 +60,7 @@
   "post-processors": [
     [
       {
-        "output": "builds/{{.Provider}}-custom-ubuntu1804.box",
+        "output": "builds/{{.Provider}}-ansible-box-ubuntu1804.box",
         "type": "vagrant"
       }
     ]
