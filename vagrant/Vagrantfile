@@ -1,0 +1,19 @@
+# -*- mode: ruby -*-
+
+Vagrant.configure(2) do |config|
+  config.ssh.username = "ansible"
+  config.ssh.password = "root"
+
+  config.vm.define "virtualbox" do |vb|
+    vb.vm.hostname = "ansible-box-ubuntu1804"
+    vb.vm.box = "file://../builds/ansible-box-ubuntu1804.box"
+    vb.vm.network :private_network, ip: "192.168.50.50"
+
+    config.vm.provider :virtualbox do |vm|
+      vm.memory = "512"
+      vm.cpus = "1"
+    end
+  end
+
+  config.vm.provision "shell", inline: "echo Hello, World"
+end

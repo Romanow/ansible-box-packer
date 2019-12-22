@@ -1,4 +1,5 @@
 .idea/
 builds/
 packer_cache/
+.vagrant/
 *.log
