@@ -1,0 +1,4 @@
+.idea/
+builds/
+packer_cache/
+*.log
