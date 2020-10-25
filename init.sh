@@ -2,7 +2,7 @@
 
 sudo apt-get install virtualbox-guest-utils --no-install-recommends --yes
 
-sudo echo "ansible ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/ansible
+sudo echo "ansible ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/ansible
 sudo -u ansible mkdir -p /home/ansible/.ssh
 sudo usermod --shell /bin/bash ansible
 

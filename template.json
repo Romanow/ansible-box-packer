@@ -3,9 +3,8 @@
     {
       "type": "virtualbox-iso",
       "guest_os_type": "Ubuntu_64",
-      "iso_url": "http://cdimage.ubuntu.com/releases/18.04/release/ubuntu-18.04.3-server-amd64.iso",
-      "iso_checksum": "cb7cd5a0c94899a04a536441c8b6d2bf",
-      "iso_checksum_type": "md5",
+      "iso_url": "http://cdimage.ubuntu.com/ubuntu-legacy-server/releases/20.04/release/ubuntu-20.04.1-legacy-server-amd64.iso",
+      "iso_checksum": "f11bda2f2caed8f420802b59f382c25160b114ccc665dbac9c5046e7fceaced2",
       "disk_size": "20000",
       "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
 
@@ -15,7 +14,7 @@
       "ssh_password": "{{user `ssh_password`}}",
 
       "shutdown_command": "echo '{{user `ssh_username`}}' | sudo -S shutdown -P now",
-      "vm_name": "ubuntu-18.04",
+      "vm_name": "ubuntu-20.04",
 
       "vboxmanage": [
         ["modifyvm", "{{.Name}}", "--memory", 1024],
@@ -60,8 +59,14 @@
   "post-processors": [
     [
       {
-        "output": "builds/{{.Provider}}-ansible-box-ubuntu1804.box",
+        "output": "builds/{{.Provider}}-ansible-box-ubuntu2004.box",
         "type": "vagrant"
+      },
+      {
+        "type": "vagrant-cloud",
+        "box_tag": "romanow/ansible-box",
+        "access_token": "{{user `cloud_token`}}",
+        "version": "{{user `version`}}"
       }
     ]
   ]

@@ -2,4 +2,5 @@
 builds/
 packer_cache/
 .vagrant/
+vagrant-cloud.json
 *.log
