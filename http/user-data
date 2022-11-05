@@ -1,0 +1,46 @@
+#cloud-config
+autoinstall:
+  version: 1
+
+  apt:
+    geoip: true
+    disable_components: []
+    preserve_sources_list: false
+    primary:
+      - arches: [amd64, i386]
+        uri: http://us.archive.ubuntu.com/ubuntu
+      - arches: [default]
+        uri: http://ports.ubuntu.com/ubuntu-ports
+    sources:
+      fish-shell:
+        source: ppa:fish-shell/release-3
+
+  early-commands:
+    - sudo systemctl stop ssh
+
+  locale: en_US
+  keyboard:
+    layout: us
+
+  identity:
+    hostname: ubuntu
+    username: ansible
+    password: "$6$eYUQqwf8YTuRINAn$roYMBcsrCV.ldl5phUNjVaDCMkMuEcJZ4jLAOAidasdGBy7Up2qS7.AV4nQHN3OunenixBJ0qsXsJZPxf8VDJ/"
+  user-data:
+    timezone: UTC
+    disable_root: false
+
+  ssh:
+    install-server: true
+    allow-pw: true
+
+  packages:
+    - openssh-server
+    - wget
+    - fish
+    - python3-pip
+    - virtualbox-guest-utils
+    - software-properties-common
+
+  late-commands:
+    - echo 'ansible ALL=(ALL) NOPASSWD:ALL' > /target/etc/sudoers.d/ansible

@@ -5,13 +5,13 @@ Vagrant.configure(2) do |config|
   config.ssh.password = "root"
 
   config.vm.define "virtualbox" do |vb|
-    vb.vm.hostname = "ansible-box-ubuntu1804"
-    vb.vm.box = "file://../builds/ansible-box-ubuntu1804.box"
+    vb.vm.hostname = "ansible-box-ubuntu2204"
+    vb.vm.box = "file://../builds/ansible-box-ubuntu2204.box"
     vb.vm.network :private_network, ip: "192.168.50.50"
 
     config.vm.provider :virtualbox do |vm|
-      vm.memory = "512"
-      vm.cpus = "1"
+      vm.memory = "2048"
+      vm.cpus = "2"
     end
   end
 

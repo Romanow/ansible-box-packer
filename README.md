@@ -1,15 +1,28 @@
 # Vagrant box
 
-Based on Ubuntu Server 20.04 LTS create `Virtualbox` image with user `ansible`/`root`
-with sudo rights without password request for operations.
+Создание образа Ubuntu 22.04 LTS для `Virtualbox`:
 
-### Build
-```shell script
-packer build -var-file vagrant-props.json -var-file vagrant-cloud.json template.json
+* с пользователем `ansible`/`root` без запроса пароля для sudo;
+* предустановленными пакетами:
+    *
+
+## Сборка
+
+Получить токен [Vagrant Cloud](https://app.vagrantup.com/) -> `Profile` -> `Security`.
+
+```shell
+$ echo 'cloud_token = "<vagrant cloud token>"' > vars.pkrvars.hcl
+
+$ packer build -var-file=vars.pkrvars.hcl template.pkr.hcl
 ```
-The assembly will be located in `builds/` directory `virtualbox-ansible-box-ubuntu2004.box`.
 
-### Publish
-1. Get token from [Vagrant Cloud](https://app.vagrantup.com/) -> Profile -> Security.
-1. Create file `vagrant-cloud.json` based on `vagrant-file.example.json` with token.
-1. Run build, new release will create in Post-Processors.
+Собранный образ находится в папке `builds/`, и опубликуется в
+репозиторий [ansible-box](https://app.vagrantup.com/romanow/boxes/ansible-box).
+
+## Проверка
+
+Для проверки можно запустить [vagrant](vagrant/Vagrantfile):
+
+```shell
+$ vagrant upl
+```

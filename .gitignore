@@ -1,6 +1,6 @@
 .idea/
-builds/
+buildx§x/
 packer_cache/
 .vagrant/
-vagrant-cloud.json
+vars.pkrvars.hcl
 *.log
