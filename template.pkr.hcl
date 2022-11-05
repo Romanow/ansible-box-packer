@@ -50,7 +50,7 @@ source "virtualbox-iso" "vb" {
   ]
   vm_name          = "ubuntu-22.04"
   output_filename  = "ansible-box-ubuntu-2204.box"
-  output_directory = "build"
+  output_directory = "builds"
 }
 
 build {
