@@ -16,12 +16,22 @@ variable "ssh_password" {
   default     = "root"
 }
 
+packer {
+  required_plugins {
+    virtualbox = {
+      version = ">= 0.0.1"
+      source  = "github.com/hashicorp/virtualbox"
+    }
+  }
+}
+
 source "virtualbox-iso" "vb" {
   disk_size            = 20000
   memory               = 4096
   cpus                 = 2
   guest_additions_path = "VBoxGuestAdditions_{{ .Version }}.iso"
   guest_os_type        = "Ubuntu_64"
+  headless             = true
 
   boot_wait      = "10s"
   http_directory = "http"
@@ -50,7 +60,6 @@ source "virtualbox-iso" "vb" {
   ]
   vm_name          = "ubuntu-22.04"
   output_filename  = "ansible-box-ubuntu-2204.box"
-  output_directory = "builds"
 }
 
 build {

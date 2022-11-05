@@ -1,5 +1,7 @@
 # Vagrant box
 
+[![Build project](https://github.com/Romanow/ansible-box-packer/actions/workflows/build.yml/badge.svg)](https://github.com/Romanow/ansible-box-packer/actions/workflows/build.yml)
+
 Создание образа Ubuntu 22.04 LTS для `Virtualbox`:
 
 * с пользователем `ansible`/`root` без запроса пароля для sudo;

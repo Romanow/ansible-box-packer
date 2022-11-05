@@ -1,0 +1,22 @@
+name: Build project
+on:
+  push:
+    branch: [ master ]
+jobs:
+  build:
+    name: Build
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Init and Validate
+        run: |-
+          packer init template.pkr.hcl
+          packer validate template.pkr.hcl
+        env:
+          PKR_VAR_cloud_token: ${{ secrets.VAGRANT_CLOUD_TOKEN }}
+
+      - name: Build
+        run: packer build template.pkr.hcl
+        env:
+          PKR_VAR_cloud_token: ${{ secrets.VAGRANT_CLOUD_TOKEN }}
