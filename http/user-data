@@ -4,12 +4,12 @@ autoinstall:
 
   apt:
     geoip: true
-    disable_components: []
+    disable_components: [ ]
     preserve_sources_list: false
     primary:
-      - arches: [amd64, i386]
+      - arches: [ amd64, i386 ]
         uri: http://us.archive.ubuntu.com/ubuntu
-      - arches: [default]
+      - arches: [ default ]
         uri: http://ports.ubuntu.com/ubuntu-ports
     sources:
       fish-shell:

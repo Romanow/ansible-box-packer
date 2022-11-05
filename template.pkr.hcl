@@ -48,7 +48,8 @@ source "virtualbox-iso" "vb" {
     ["modifyvm", "{{ .Name }}", "--memory", 4096],
     ["modifyvm", "{{ .Name }}", "--cpus", 2]
   ]
-  vm_name = "ubuntu-22.04"
+  vm_name          = "ubuntu-22.04"
+  output_filename  = "ansible-box-ubuntu-2204.box"
   output_directory = "build"
 }
 
