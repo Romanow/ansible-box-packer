@@ -1,0 +1,36 @@
+#cloud-config
+autoinstall:
+  version: 1
+  apt:
+    geoip: true
+    disable_components: []
+    preserve_sources_list: false
+    primary:
+      - arches: [amd64, i386]
+        uri: http://us.archive.ubuntu.com/ubuntu
+      - arches: [default]
+        uri: http://ports.ubuntu.com/ubuntu-ports
+  early-commands:
+    - sudo systemctl stop ssh
+  locale: en_US
+  keyboard:
+    layout: us
+  identity:
+    hostname: ubuntu
+    username: ansible
+    password: $6$xxx$n62YIIJStdJnCRCOqdd/DpDS9FPr62wBVcuvOUt4w4YOaaFWWRi0I93fOkKcbZBeNDP/zXZzhIE/8gRGo0m7O/
+  ssh:
+    install-server: true
+    allow-pw: true
+  packages:
+    - openssh-server
+    - wget
+    - fish
+    - python3-pip
+    - virtualbox-guest-utils
+    - software-properties-common
+  user-data:
+    disable_root: false
+    timezone: UTC
+  late-commands:
+    - pip3 install --upgrade pip
