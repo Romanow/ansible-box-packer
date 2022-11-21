@@ -14,9 +14,20 @@ jobs:
           packer init template.pkr.hcl
           packer validate template.pkr.hcl
         env:
-          PKR_VAR_cloud_token: ${{ secrets.VAGRANT_CLOUD_TOKEN }}
+          PKR_VAR_vagrant_token: ${{ secrets.VAGRANT_CLOUD_TOKEN }}
+          PKR_VAR_do_token: ${{ secrets.DIGITAL_OCEAN_TOKEN }}
+          PKR_VAR_do_spaces_key: ${{ secrets.DIGITAL_OCEAN_SPACES_KEY }}
+          PKR_VAR_do_spaces_secret: ${{ secrets.DIGITAL_OCEAN_SPACES_SECRET }}
 
       - name: Build
         run: packer build template.pkr.hcl
         env:
-          PKR_VAR_cloud_token: ${{ secrets.VAGRANT_CLOUD_TOKEN }}
+          PKR_VAR_vagrant_token: ${{ secrets.VAGRANT_CLOUD_TOKEN }}
+          PKR_VAR_do_token: ${{ secrets.DIGITAL_OCEAN_TOKEN }}
+          PKR_VAR_do_spaces_key: ${{ secrets.DIGITAL_OCEAN_SPACES_KEY }}
+          PKR_VAR_do_spaces_secret: ${{ secrets.DIGITAL_OCEAN_SPACES_SECRET }}
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: ubuntu-2204.box
+          path: builds/ansible-box-ubuntu-2204.box

@@ -1,6 +1,37 @@
-variable "cloud_token" {
+packer {
+  required_plugins {
+    virtualbox = {
+      version = ">= 0.0.1"
+      source  = "github.com/hashicorp/virtualbox"
+    }
+    digitalocean = {
+      version = ">= 1.0.4"
+      source  = "github.com/digitalocean/digitalocean"
+    }
+  }
+}
+
+variable "vagrant_token" {
   type        = string
   description = "Token for publishing to Vagrant Cloud"
+  sensitive   = true
+}
+
+variable "do_token" {
+  type        = string
+  description = "DigitalOcean access token"
+  sensitive   = true
+}
+
+variable "do_spaces_key" {
+  type        = string
+  description = "DigitalOcean spaces key"
+  sensitive   = true
+}
+
+variable "do_spaces_secret" {
+  type        = string
+  description = "DigitalOcean spaces secret"
   sensitive   = true
 }
 
@@ -14,15 +45,6 @@ variable "ssh_password" {
   type        = string
   description = "SSH password"
   default     = "root"
-}
-
-packer {
-  required_plugins {
-    virtualbox = {
-      version = ">= 0.0.1"
-      source  = "github.com/hashicorp/virtualbox"
-    }
-  }
 }
 
 source "virtualbox-iso" "vb" {
@@ -58,8 +80,8 @@ source "virtualbox-iso" "vb" {
     ["modifyvm", "{{ .Name }}", "--memory", 4096],
     ["modifyvm", "{{ .Name }}", "--cpus", 2]
   ]
-  vm_name          = "ubuntu-22.04"
-  output_filename  = "ansible-box-ubuntu-2204.box"
+  vm_name         = "ubuntu-22.04"
+  output_filename = "ansible-box-ubuntu-2204.box"
 }
 
 build {
@@ -74,9 +96,20 @@ build {
       output = "builds/{{ .Provider }}-ansible-box-ubuntu2204.box"
     }
     post-processor "vagrant-cloud" {
-      access_token = var.cloud_token
+      access_token = var.vagrant_token
       box_tag      = "romanow/ansible-box"
       version      = "22.04"
+    }
+    post-processor "digitalocean-import" {
+      api_token         = var.do_token
+      spaces_key        = var.do_spaces_key
+      spaces_secret     = var.do_spaces_secret
+      spaces_region     = "nyc3"
+      space_name        = "import-bucket"
+      image_name        = "ubuntu-22.04-${formatdate("DD-MM-YYYY", timestamp())}"
+      image_description = "Custom Ubuntu 22.04 image"
+      image_regions     = ["ams3"]
+      image_tags        = ["packer"]
     }
   }
 }

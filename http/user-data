@@ -38,6 +38,7 @@ autoinstall:
     - openssh-server
     - wget
     - fish
+    - jq
     - python3-pip
     - virtualbox-guest-utils
     - software-properties-common

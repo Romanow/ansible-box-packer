@@ -2,18 +2,33 @@
 
 [![Build project](https://github.com/Romanow/ansible-box-packer/actions/workflows/build.yml/badge.svg)](https://github.com/Romanow/ansible-box-packer/actions/workflows/build.yml)
 
-Создание образа Ubuntu 22.04 LTS для `Virtualbox`:
+Создание образа Ubuntu 22.04 LTS для `Virtualbox` и публикация на DigitalOcean как Custom Image. Образ содержит:
 
-* с пользователем `ansible`/`root` без запроса пароля для sudo;
-* предустановленными пакетами:
-    *
+* пользователь `ansible`/`root` без запроса пароля для sudo;
+* предустановленные пакеты:
+    * openssh-server
+    * wget
+    * fish
+    * python3-pip
+    * virtualbox-guest-utils
+    * software-properties-common
 
 ## Сборка
 
-Получить токен [Vagrant Cloud](https://app.vagrantup.com/) -> `Profile` -> `Security`.
+Для сборки требуется token доступа:
+
+* [Vagrant Cloud token](https://app.vagrantup.com/) -> `Profile` -> `Security`.
+* [DigitalOcean API token](https://cloud.digitalocean.com/) -> `API` -> `Personal access tokens`.
+* [DigitalOcean Spaces Keys](https://cloud.digitalocean.com/) -> `API` -> `Spaces access key`.
 
 ```shell
 $ echo 'cloud_token = "<vagrant cloud token>"' > vars.pkrvars.hcl
+$ tee -a vars.pkrvars.hcl > /dev/null <<EOT
+cloud_token = "<Vagrant Cloud token>"
+do_token = "<Digital Ocean API token>"
+do_spaces_key = "<Digital Ocean Spaces key>"
+do_spaces_secret = "<Digital Ocean Spaces secret>"
+EOT
 
 $ packer build -var-file=vars.pkrvars.hcl template.pkr.hcl
 ```
