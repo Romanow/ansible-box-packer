@@ -108,7 +108,7 @@ build {
       spaces_secret       = var.do_spaces_secret
       spaces_region       = "nyc3"
       space_name          = "import-bucket"
-      image_name          = "ubuntu-22.04-${formatdate("DD-MM-YYYY", timestamp())}"
+      image_name          = "ansible-box-ubuntu-2204.box"
       image_description   = "Custom Ubuntu 22.04 image"
       image_regions       = ["ams3"]
       image_tags          = ["packer"]
