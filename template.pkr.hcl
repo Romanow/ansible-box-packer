@@ -96,7 +96,7 @@ build {
       api_token           = var.do_token
       spaces_key          = var.do_spaces_key
       spaces_secret       = var.do_spaces_secret
-      spaces_region       = "nyc3"
+      spaces_region       = "ams3"
       space_name          = "import-bucket"
       image_name          = "ansible-box-ubuntu-2204.box"
       image_description   = "Custom Ubuntu 22.04 image"
