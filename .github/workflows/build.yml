@@ -20,6 +20,7 @@ jobs:
           PKR_VAR_do_spaces_secret: ${{ secrets.DIGITAL_OCEAN_SPACES_SECRET }}
 
       - name: Build
+        timeout-minutes: 120
         run: packer build template.pkr.hcl
         env:
           PKR_VAR_vagrant_token: ${{ secrets.VAGRANT_CLOUD_TOKEN }}

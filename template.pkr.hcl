@@ -98,11 +98,15 @@ build {
       spaces_secret       = var.do_spaces_secret
       spaces_region       = "ams3"
       space_name          = "import-bucket"
-      image_name          = "ansible-box-ubuntu-2204.box"
+      image_name          = "ansible-box-ubuntu-2204"
       image_description   = "Custom Ubuntu 22.04 image"
+      space_object_name   = "ansible-box-ubuntu-2204-${formatdate("DD-MM-YYYY", timestamp())}"
       image_regions       = ["ams3"]
-      image_tags          = ["packer"]
+      image_tags          = ["packer", "ubuntu", "ansible-ready"]
+      image_distribution  = "Ubuntu"
+      skip_clean          = true
       keep_input_artifact = true
+      timeout             = 60
     }
     post-processor "vagrant" {
       output              = "builds/{{ .Provider }}-ansible-box-ubuntu2204.box"
