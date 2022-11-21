@@ -93,23 +93,26 @@ build {
 
   post-processors {
     post-processor "vagrant" {
-      output = "builds/{{ .Provider }}-ansible-box-ubuntu2204.box"
+      output              = "builds/{{ .Provider }}-ansible-box-ubuntu2204.box"
+      keep_input_artifact = true
     }
     post-processor "vagrant-cloud" {
-      access_token = var.vagrant_token
-      box_tag      = "romanow/ansible-box"
-      version      = "22.04"
+      access_token        = var.vagrant_token
+      box_tag             = "romanow/ansible-box"
+      version             = "22.04"
+      keep_input_artifact = true
     }
     post-processor "digitalocean-import" {
-      api_token         = var.do_token
-      spaces_key        = var.do_spaces_key
-      spaces_secret     = var.do_spaces_secret
-      spaces_region     = "nyc3"
-      space_name        = "import-bucket"
-      image_name        = "ubuntu-22.04-${formatdate("DD-MM-YYYY", timestamp())}"
-      image_description = "Custom Ubuntu 22.04 image"
-      image_regions     = ["ams3"]
-      image_tags        = ["packer"]
+      api_token           = var.do_token
+      spaces_key          = var.do_spaces_key
+      spaces_secret       = var.do_spaces_secret
+      spaces_region       = "nyc3"
+      space_name          = "import-bucket"
+      image_name          = "ubuntu-22.04-${formatdate("DD-MM-YYYY", timestamp())}"
+      image_description   = "Custom Ubuntu 22.04 image"
+      image_regions       = ["ams3"]
+      image_tags          = ["packer"]
+      keep_input_artifact = true
     }
   }
 }
