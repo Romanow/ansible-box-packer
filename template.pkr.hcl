@@ -106,7 +106,7 @@ build {
       image_distribution  = "Ubuntu"
       skip_clean          = true
       keep_input_artifact = true
-      timeout             = 60
+      timeout             = "60m"
     }
     post-processor "vagrant" {
       output              = "builds/{{ .Provider }}-ansible-box-ubuntu2204.box"
