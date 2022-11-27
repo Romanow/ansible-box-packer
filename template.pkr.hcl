@@ -4,34 +4,12 @@ packer {
       version = ">= 0.0.1"
       source  = "github.com/hashicorp/virtualbox"
     }
-    digitalocean = {
-      version = ">= 1.0.4"
-      source  = "github.com/digitalocean/digitalocean"
-    }
   }
 }
 
 variable "vagrant_token" {
   type        = string
   description = "Token for publishing to Vagrant Cloud"
-  sensitive   = true
-}
-
-variable "do_token" {
-  type        = string
-  description = "DigitalOcean access token"
-  sensitive   = true
-}
-
-variable "do_spaces_key" {
-  type        = string
-  description = "DigitalOcean spaces key"
-  sensitive   = true
-}
-
-variable "do_spaces_secret" {
-  type        = string
-  description = "DigitalOcean spaces secret"
   sensitive   = true
 }
 
@@ -92,22 +70,6 @@ build {
   }
 
   post-processors {
-    post-processor "digitalocean-import" {
-      api_token           = var.do_token
-      spaces_key          = var.do_spaces_key
-      spaces_secret       = var.do_spaces_secret
-      spaces_region       = "ams3"
-      space_name          = "import-bucket"
-      image_name          = "ansible-box-ubuntu-2204"
-      image_description   = "Custom Ubuntu 22.04 image"
-      space_object_name   = "ansible-box-ubuntu-2204-${formatdate("DD-MM-YYYY", timestamp())}"
-      image_regions       = ["ams3"]
-      image_tags          = ["packer", "ubuntu", "ansible-ready"]
-      image_distribution  = "Ubuntu"
-      skip_clean          = true
-      keep_input_artifact = true
-      timeout             = "60m"
-    }
     post-processor "vagrant" {
       output              = "builds/{{ .Provider }}-ansible-box-ubuntu2204.box"
       keep_input_artifact = true
