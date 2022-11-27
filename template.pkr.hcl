@@ -71,7 +71,7 @@ build {
 
   post-processors {
     post-processor "vagrant" {
-      output              = "builds/{{ .Provider }}-ansible-box-ubuntu2204.box"
+      output              = "builds/ansible-box-ubuntu2204.box"
       keep_input_artifact = true
     }
     post-processor "vagrant-cloud" {

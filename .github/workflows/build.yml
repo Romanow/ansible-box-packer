@@ -21,3 +21,8 @@ jobs:
         run: packer build template.pkr.hcl
         env:
           PKR_VAR_vagrant_token: ${{ secrets.VAGRANT_CLOUD_TOKEN }}
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: ubuntu-2204.box
+          path: builds/ansible-box-ubuntu2204.box
